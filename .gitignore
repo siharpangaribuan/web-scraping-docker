@@ -1,0 +1,5 @@
+# Ignore .env file
+.env
+
+# Ignore json folder inside the script directory
+script/json/

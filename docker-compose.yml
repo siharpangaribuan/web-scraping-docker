@@ -1,0 +1,8 @@
+version: '3'
+services:
+  webscraper-flight_radar:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ./script:/app
