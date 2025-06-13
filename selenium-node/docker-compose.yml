@@ -1,0 +1,69 @@
+version: '3'
+services:
+  hub:
+    image: selenium/hub:latest
+    container_name: selenium-hub
+    ports:
+      - "4444:4444"
+    networks:
+      - selenium-net
+  
+  firefox_1:
+    image: selenium/node-firefox:latest
+    container_name: selenium-node-1
+    depends_on:
+      - hub
+    environment:
+      SE_EVENT_BUS_HOST: hub  # Penting: Atur nama host Hub
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+      SE_NODE_LABELS: firefox,node1
+    shm_size: 2g
+    networks:
+      - selenium-net
+    
+  firefox_2:
+    image: selenium/node-firefox:latest
+    container_name: selenium-node-2
+    depends_on:
+      - hub
+    environment:
+      SE_EVENT_BUS_HOST: hub  # Penting: Atur nama host Hub
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+      SE_NODE_LABELS: firefox,node2
+    shm_size: 2g
+    networks:
+      - selenium-net
+
+  firefox_3:
+    image: selenium/node-firefox:latest
+    container_name: selenium-node-3
+    depends_on:
+      - hub
+    environment:
+      SE_EVENT_BUS_HOST: hub  # Penting: Atur nama host Hub
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+      SE_NODE_LABELS: firefox,node3
+    shm_size: 2g
+    networks:
+      - selenium-net
+
+  firefox_4:
+    image: selenium/node-firefox:latest
+    container_name: selenium-node-4
+    depends_on:
+      - hub
+    environment:
+      SE_EVENT_BUS_HOST: hub  # Penting: Atur nama host Hub
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+      SE_NODE_LABELS: firefox,node4
+    shm_size: 2g
+    networks:
+      - selenium-net
+
+networks:
+  selenium-net:  # Pastikan semua layanan berada dalam jaringan yang sama
+    driver: bridge
